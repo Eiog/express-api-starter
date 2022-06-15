@@ -25,6 +25,9 @@ class BaseCrudProviderCls<document, Cdocument> {
     const result = await this.DBModel.find(query, projection, options)
     return result && result.map((d) => d.toJSON())
   }
+  async delete(query:FilterQuery<document>,){
+    return this.DBModel.deleteOne(query)
+  }
 }
 
 const BaseCrudProvider = function <document, Cdocument>(DBModel: Model<any>) {
@@ -34,6 +37,7 @@ const BaseCrudProvider = function <document, Cdocument>(DBModel: Model<any>) {
     create: CRUD.create.bind(CRUD),
     update: CRUD.update.bind(CRUD),
     find: CRUD.find.bind(CRUD),
+    delete:CRUD.delete.bind(CRUD)
   }
 }
 
