@@ -2,43 +2,60 @@
 
 // 根据自己的需要增加
 
-import { FilterQuery, UpdateQuery, DocumentDefinition, QueryOptions, Model, InsertManyOptions } from 'mongoose'
+import {
+  FilterQuery,
+  UpdateQuery,
+  DocumentDefinition,
+  QueryOptions,
+  Model,
+} from 'mongoose';
 
 class BaseCrudProviderCls<document, Cdocument> {
-  private DBModel: Model<any>
+  private DBModel: Model<any>;
 
   constructor(DBModel: Model<any>) {
-    this.DBModel = DBModel
+    this.DBModel = DBModel;
   }
 
   async create(input: DocumentDefinition<Cdocument>) {
-    const data = await this.DBModel.create(input)
+    const data = await this.DBModel.create(input);
 
-    return data.toJSON()
+    return data.toJSON();
   }
 
-  async update(query: FilterQuery<document>, update: UpdateQuery<document>, options?: QueryOptions) {
-    return this.DBModel.updateOne(query, update, options)
+  async update(
+    query: FilterQuery<document>,
+    update: UpdateQuery<document>,
+    options?: QueryOptions,
+  ) {
+    return this.DBModel.updateOne(query, update, options);
   }
 
-  async find(query: FilterQuery<document>, projection?: any, options?: QueryOptions) {
-    const result = await this.DBModel.find(query, projection, options)
-    return result && result.map((d) => d.toJSON())
+  async find(
+    query: FilterQuery<document>,
+    projection?: any,
+    options?: QueryOptions,
+  ) {
+    const result = await this.DBModel.find(query, projection, options);
+    return result && result.map((d) => d.toJSON());
   }
-  async delete(query:FilterQuery<document>,){
-    return this.DBModel.deleteOne(query)
+  async delete(query: FilterQuery<document>) {
+    const result = await this.DBModel.deleteOne(query);
+    console.log(result);
+
+    return result && result;
   }
 }
 
 const BaseCrudProvider = function <document, Cdocument>(DBModel: Model<any>) {
-  const CRUD = new BaseCrudProviderCls<document, Cdocument>(DBModel)
+  const CRUD = new BaseCrudProviderCls<document, Cdocument>(DBModel);
 
   return {
     create: CRUD.create.bind(CRUD),
     update: CRUD.update.bind(CRUD),
     find: CRUD.find.bind(CRUD),
-    delete:CRUD.delete.bind(CRUD)
-  }
-}
+    delete: CRUD.delete.bind(CRUD),
+  };
+};
 
-export { BaseCrudProvider }
+export { BaseCrudProvider };
