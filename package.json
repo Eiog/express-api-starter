@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only src/app.ts",
     "build": "tsc",
+    "type": "tsc --noEmit",
     "start": "node dist/app.js",
     "pm2:setup": "pm2 deploy production setup",
     "pm2:deploy": "pm2 deploy production"
