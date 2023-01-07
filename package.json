@@ -1,5 +1,5 @@
 {
-  "name": "template-express",
+  "name": "express-ts-starter",
   "version": "1.0.0",
   "main": "src/app.ts",
   "author": "xsrole",

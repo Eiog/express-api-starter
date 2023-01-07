@@ -11,7 +11,7 @@ const routerConf: Array<RouterConf> = [];
 function useRoutes(app: Express) {
   // 根目录
   app.get('/', (req: Request, res: Response) => {
-    res.send('Welcome Use Express');
+    res.send('Welcome Use Express-Ts-Starter');
   });
   routerConf.forEach((conf) => app.use(conf.path, conf.router));
 }
