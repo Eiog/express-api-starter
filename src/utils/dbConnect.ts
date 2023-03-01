@@ -1,7 +1,8 @@
 import mongoose from 'mongoose'
+import { MongodbUrl } from '../constants/mongodb'
 import logger from './logger'
 async function dbConnect() {
-  const url = 'mongodb://admin:995801@101.200.179.232:27017/blog'
+  const url = MongodbUrl()
   try {
     const connection = await mongoose.connect(url)
     logger.info('DB connected')
